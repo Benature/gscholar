@@ -28,7 +28,7 @@ FORMAT_WENXIANWANG = 5
 logger = logging.getLogger(__name__)
 
 
-def query(searchstr, outformat=FORMAT_BIBTEX, allresults=False):
+def query(searchstr, outformat=FORMAT_BIBTEX, allresults=False, cookie=""):
     """Query google scholar.
 
     This method queries google scholar and returns a list of citations.
@@ -52,7 +52,7 @@ def query(searchstr, outformat=FORMAT_BIBTEX, allresults=False):
     searchstr = '/scholar?q='+quote(searchstr)
     url = GOOGLE_SCHOLAR_URL + searchstr
     header = HEADERS
-    header['Cookie'] = "GSP=CF=%d" % outformat
+    header['Cookie'] = f"GSP=CF={outformat}; {cookie}"
     request = Request(url, headers=header)
     response = urlopen(request)
     # add set_cookie in header in request header!
